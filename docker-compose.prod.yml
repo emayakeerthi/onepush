@@ -1,0 +1,13 @@
+services:
+  onepush-server:
+    build:
+      context: .
+      target: production
+      args:
+        - SERVER_PORT=${SERVER_PORT}
+        - GIN_MODE=release
+    ports:
+      - 80:${SERVER_PORT}
+    env_file:
+      - .env
+    restart: unless-stopped

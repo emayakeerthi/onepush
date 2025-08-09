@@ -28,22 +28,31 @@ EXPOSE ${SERVER_PORT}
 
 CMD ["air", "-c", ".air.toml"]
 
-FROM baseimage AS production
+FROM golang:1.24 AS production
 
 ARG SERVER_PORT=2609
 ENV SERVER_PORT=${SERVER_PORT}
-ENV CGO_ENABLED=0
-ENV GOOS=linux
 
 WORKDIR /app
 
-COPY ./server ./server
+# Install system dependencies
+RUN apt-get update && apt-get install -y libssl-dev libmcrypt-dev git
 
-WORKDIR /app/server
-RUN go build -buildvcs=false -a -ldflags '-extldflags "-static"' -o /app/server-binary ./cmd/server
+# Copy the entire server directory
+COPY ./server ./
 
-WORKDIR /app
+# Download dependencies
+RUN go mod download && go mod verify
+
+# Debug: Show Go environment
+RUN go env
+
+# Build the binary
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -buildvcs=false -v -a -ldflags "-s -w" -o onepushserver ./cmd/server
 
 EXPOSE ${SERVER_PORT}
 
-CMD ["/app/server-binary"]
+# Make the binary executable
+RUN chmod +x onepushserver
+
+CMD ["./onepushserver"]

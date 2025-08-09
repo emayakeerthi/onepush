@@ -7,7 +7,7 @@ services:
         - SERVER_PORT=${SERVER_PORT}
     ports:
       - 2002:${SERVER_PORT}
-    volumes:
-      - ./:/app
+    # volumes:
+    #   - ./:/app  # Commented out to prevent overwriting the built binary
     env_file:
       - .env
