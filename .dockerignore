@@ -19,3 +19,5 @@ Thumbs.db
 
 # Dependencies that will be downloaded during build
 server/vendor/
+
+tmp
