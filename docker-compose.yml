@@ -2,7 +2,7 @@ services:
   onepush-server:
     build:
       context: .
-      target: development
+      target: ${TARGET}
       args:
         - SERVER_PORT=${SERVER_PORT}
     ports:
@@ -11,4 +11,3 @@ services:
       - ./:/app
     env_file:
       - .env
-  
