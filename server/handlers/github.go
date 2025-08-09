@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"onepush-server/internal/hooks"
 	storePkg "onepush-server/internal/store"
 
@@ -20,4 +21,11 @@ func NewGitHubHookHandler(store *storePkg.Store, github *hooks.GithubHooks) *Git
 }
 
 func (h *GitHubHookHandler) HandleGitHubHook(c *gin.Context) {
+	var data any
+	if err := c.ShouldBind(&data); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	fmt.Printf("Received GitHub hook data: %+v\n", data)
 }
