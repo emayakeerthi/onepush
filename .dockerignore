@@ -1,0 +1,21 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+LICENSE
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Dependencies that will be downloaded during build
+server/vendor/

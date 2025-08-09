@@ -1,0 +1,14 @@
+services:
+  onepush-server:
+    build:
+      context: .
+      target: development
+      args:
+        - SERVER_PORT=${SERVER_PORT}
+    ports:
+      - 2002:${SERVER_PORT}
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+  
