@@ -17,3 +17,14 @@ func NewStore() *Store {
 		redisClient: client,
 	}
 }
+
+func (s *Store) GetRedisClient() *redis.Client {
+	return s.redisClient
+}
+
+func (s *Store) Close() error {
+	if s.redisClient != nil {
+		return s.redisClient.Close()
+	}
+	return nil
+}

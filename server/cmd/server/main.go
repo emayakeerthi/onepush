@@ -4,7 +4,7 @@ import (
 	"onepush-server/config"
 	"onepush-server/handlers"
 	"onepush-server/internal/hooks"
-	"onepush-server/internal/store"
+	storePkg "onepush-server/internal/store"
 	"onepush-server/utils"
 	"strconv"
 
@@ -20,13 +20,13 @@ func main() {
 	router := gin.Default()
 
 	config := config.NewConfig()
-	store := store.NewStore()
+	store := storePkg.NewStore()
 	githubHooks := hooks.NewGithubHooks(store)
 
 	router.GET("/health", HandleSystemHealth)
 
 	githubHandler := handlers.NewGitHubHookHandler(store, githubHooks)
-	router.POST("/github/webhook", githubHandler.HandleGitHubHook)
+	router.POST("/github/hook", githubHandler.HandleGitHubHook)
 
 	router.Run(":" + strconv.Itoa(config.ServerPort))
 }

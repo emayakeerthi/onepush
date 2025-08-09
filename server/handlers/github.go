@@ -2,17 +2,17 @@ package handlers
 
 import (
 	"onepush-server/internal/hooks"
-	"onepush-server/internal/store"
+	storePkg "onepush-server/internal/store"
 
 	"github.com/gin-gonic/gin"
 )
 
 type GitHubHookHandler struct {
-	store  *store.Store
+	store  *storePkg.Store
 	github *hooks.GithubHooks
 }
 
-func NewGitHubHookHandler(store *store.Store, github *hooks.GithubHooks) *GitHubHookHandler {
+func NewGitHubHookHandler(store *storePkg.Store, github *hooks.GithubHooks) *GitHubHookHandler {
 	return &GitHubHookHandler{
 		store:  store,
 		github: github,
@@ -20,5 +20,4 @@ func NewGitHubHookHandler(store *store.Store, github *hooks.GithubHooks) *GitHub
 }
 
 func (h *GitHubHookHandler) HandleGitHubHook(c *gin.Context) {
-
 }
