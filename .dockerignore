@@ -1,5 +1,5 @@
-# Git
-.git
+# Git (commented out to allow VCS info in builds)
+# .git
 .gitignore
 
 # Documentation

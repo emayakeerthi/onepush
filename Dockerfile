@@ -2,7 +2,7 @@ FROM golang:1.24 AS baseimage
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install libssl-dev libmcrypt-dev -y
+RUN apt-get update && apt-get install libssl-dev libmcrypt-dev git -y
 
 COPY server/go.mod server/go.sum ./server/
 
@@ -16,6 +16,8 @@ FROM baseimage AS development
 
 ARG SERVER_PORT=2609
 ENV SERVER_PORT=${SERVER_PORT}
+ENV CGO_ENABLED=0
+ENV GOOS=linux
 
 WORKDIR /app
 
